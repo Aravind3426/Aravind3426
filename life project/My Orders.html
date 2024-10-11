@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracker - Boxing Factory</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #000;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-status {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .order-status.success {
+            border-color: #28a745;
+            background-color: #e7f9e7;
+        }
+
+        .order-status.error {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Boxing Factory</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li><a href="Cartpage.html">Cart Page</a></li>
+                <li><a href="My Orders.html">Order Tracker</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Your Order Status</h1>
+            <div id="orderStatus" class="order-status"></div>
+            <button onclick="refreshOrderStatus()" class="submit-button" style="margin-top: 20px;">Refresh Status</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Boxing Factory. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function displayOrderStatus() {
+            const orderId = localStorage.getItem('orderId');
+            const selectedProduct = localStorage.getItem('selectedProduct');
+            const orderStatusDiv = document.getElementById('orderStatus');
+
+            if (orderId && selectedProduct) {
+                orderStatusDiv.innerHTML = `
+                    <strong>Your last order:</strong><br>
+                    Product: ${selectedProduct}<br>
+                    Order ID: ${orderId}<br>
+                    Payment Status: <span style="color: green;">Successful</span>
+                `;
+                orderStatusDiv.className = 'order-status success';
+            } else {
+                orderStatusDiv.innerHTML = "No recent orders found.";
+                orderStatusDiv.className = 'order-status error';
+            }
+        }
+
+        function refreshOrderStatus() {
+            // Simulate an order status refresh
+            alert('Refreshing order status...');
+            displayOrderStatus(); // Call the display function again
+        }
+
+        // Call displayOrderStatus on page load
+        window.onload = displayOrderStatus;
+    </script>
+</body>
+</html>
